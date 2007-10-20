@@ -1,0 +1,14 @@
+class CreateEntries < ActiveRecord::Migration
+  def self.up
+    create_table :entries do |t|
+      t.column :nick, :string
+      t.column :email, :string
+      t.column :owner_event_id, :integer
+      t.column :status, :string
+    end
+  end
+
+  def self.down
+    drop_table :entries
+  end
+end
