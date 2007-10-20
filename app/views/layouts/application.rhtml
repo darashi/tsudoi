@@ -1,20 +1,20 @@
 <%= render :partial => "layouts/common_head" %>
 <body>
+
 <div id="header">
- <div id="logo"><h1><%= link_to 'Tsudoi', :controller => "index", :action => "index" %></h1></div>
+  <div id="logo"><h1><%= link_to 'Tsudoi', :controller => "index", :action => "index" %></h1></div>
 </div> <!-- header -->
 
 <%= render :partial => "layouts/header" %>
-
 <p style="color: green"><%= flash[:notice] %></p>
-
 <%= yield  %>
-
 <%= render :partial => "layouts/footer" %>
 
+<hr />
+
 <div id="footer">
-<hr>
-<address>Powered by <%= link_to 'Tsudoi', 'http://tsudoi.ruby-sapporo.org/' %>(URLは仮)</address>
+  <address>Powered by <%= link_to 'Tsudoi', 'http://tsudoi.ruby-sapporo.org/' %>(URLは仮)</address>
 </div> <!-- footer -->
+
 </body>
 </html>
