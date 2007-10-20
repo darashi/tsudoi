@@ -5,6 +5,7 @@ class CreateEntries < ActiveRecord::Migration
       t.column :email, :string
       t.column :event_id, :integer
       t.column :status, :string
+      t.column :token, :string
     end
   end
 

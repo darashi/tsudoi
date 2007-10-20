@@ -13,10 +13,16 @@
 <div id="members">
   <h2>参加者一覧</h2>
   <ul>
-  <% for entry in @event.entries %>
+  <% for entry in @event.confirmed_entries %>
     <li><%=h entry.nick %></li>
   <% end %>
   </ul>
 </div>
 
-<%= link_to "このイベントに参加する", :action => :join %>
+<h2>このイベントに参加する</h2>
+<% form_tag :action => :sent do %>
+  <p>ニックネーム: <%= text_field_tag :nick %></p>
+  <p>メールアドレス: <%= text_field_tag :email, "", :size => 40 %></p>
+  <%= hidden_field_tag :event_id, @event.id %>
+  <%= submit_tag %>
+<% end %>

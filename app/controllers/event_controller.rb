@@ -65,8 +65,31 @@ class EventController < ApplicationController
     end
     redirect_to :action => 'list'
   end
+
   def owned
     @events = self.current_user.owned_events
   end
 
+  # 参加確認を送信しました画面
+  def sent
+    @entry = Entry.create(
+      :nick => params[:nick], :email => params[:email], :event_id => params[:event_id]
+    )
+    RegisterNotifier.deliver_confirmation(@entry)
+  end
+
+  # 送信を確認した　
+  def confirmation
+    @entry = Entry.find(params[:id])
+    if @entry.status == "waiting_for_confirmation"
+      if @entry.token == params[:token]
+        @entry.update_attribute :status, "confirmed"
+      else
+        # TODO: なんかおかしい場合(トークン不一致)
+        render_text "不正な URL がリクエストされました。"
+      end
+    else
+      # TODO: すでにconfirmされている
+    end
+  end
 end
