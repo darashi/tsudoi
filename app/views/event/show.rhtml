@@ -11,10 +11,12 @@
 </div>
 
 <div id="members">
-  <h2> 参加者一覧</h2>
+  <h2>参加者一覧</h2>
   <ul>
   <% for entry in @event.entries %>
     <li><%=h entry.nick %></li>
   <% end %>
   </ul>
 </div>
+
+<%= link_to "このイベントに参加する", :action => :join %>

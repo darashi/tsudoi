@@ -7,11 +7,11 @@
 <p><label for="event_location">Location</label><br/>
 <%= text_field 'event', 'location'  %></p>
 
-<p><label for="event_date">Date</label><br/>
-<%= date_select 'event', 'date'  %></p>
+<p><label for="event_time">Date</label><br/>
+<%= datetime_select 'event', 'time'  %></p>
 
 <p><label for="event_deadline">Deadline</label><br/>
-<%= date_select 'event', 'deadline'  %></p>
+<%= datetime_select 'event', 'deadline'  %></p>
 
 <p><label for="event_description">Description</label><br/>
 <%= text_area 'event', 'description'  %></p>

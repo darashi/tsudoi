@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  validates_presence_of :name, :date, :location, :description, :status
+  validates_presence_of :name, :time, :location, :description, :status
   belongs_to :owner, :class_name => "User", :foreign_key => :owner_user_id
   has_many :entries
   validates_numericality_of :capacity, :only_integer => true, :allow_nil => true
