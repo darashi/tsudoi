@@ -55,7 +55,7 @@ class AccountController < ApplicationController
   end
 
   def delete
-    if self.current_user.owned_events.empty?
+    unless Event.find(:first, :conditions => ['time > ? AND owner_user_id = ?', Time.now, self.current_user.id])
       self.current_user.destroy
       redirect_to :action => 'logout'
     else
