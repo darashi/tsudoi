@@ -1,5 +1,4 @@
 class AccountController < ApplicationController
-  layout "index"
 
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
