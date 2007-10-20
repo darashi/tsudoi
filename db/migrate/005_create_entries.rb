@@ -3,7 +3,7 @@ class CreateEntries < ActiveRecord::Migration
     create_table :entries do |t|
       t.column :nick, :string
       t.column :email, :string
-      t.column :owner_event_id, :integer
+      t.column :event_id, :integer
       t.column :status, :string
     end
   end
