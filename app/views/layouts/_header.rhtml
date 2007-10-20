@@ -1,12 +1,15 @@
-<p id="login_check">
-<% if logged_in? %>
-  <%=h self.current_user.login %> でログイン中
-  (<%= link_to "ログアウト", :controller => "/account", :action => :logout %> | 
-   <%= link_to "アカウント削除", :controller => "/account", :action => :delete %>)
-<% else %>
-  <% path = [controller.controller_name, controller.action_name].join("/") %>
-  <% unless ["index/index", "account/login"].include? path %>
-    <%= link_to "ログインする", :controller => "/account", :action => :login %>
+<div id="header">
+  <div id="logo"><h1><%= link_to 'Tsudoi', :controller => "index", :action => "index" %></h1></div>
+  <p id="login_check">
+  <% if logged_in? %>
+    <%=h self.current_user.login %> でログイン中
+    (<%= link_to "ログアウト", :controller => "/account", :action => :logout %> | 
+     <%= link_to "アカウント削除", :controller => "/account", :action => :delete %>)
+  <% else %>
+    <% path = [controller.controller_name, controller.action_name].join("/") %>
+    <% unless ["index/index", "account/login"].include? path %>
+      <%= link_to "ログインする", :controller => "/account", :action => :login %>
+    <% end %>
   <% end %>
-<% end %>
-</p>
+  </p>
+</div> <!-- header -->
