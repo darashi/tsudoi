@@ -1,9 +1,12 @@
-body { background-color: #fff; color: #333; }
+body {
+  background-color: #fff;
+  color: #515151;
+}
 
 body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
-  line-height: 18px;
+  font-family: 'Lucida Grande', verdana, arial, helvetica, sans-serif;
+  font-size:   1em;
+  line-height: 1.4;
 }
 
 pre {
