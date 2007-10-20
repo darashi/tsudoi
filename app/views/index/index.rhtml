@@ -2,11 +2,11 @@
 <ul>
   <li><%= link_to '主催イベント一覧', :controller => "event", :action => "owned" %></li>
   <li><%= link_to '開催中のイベント一覧', :controller => "event", :action => "list" %></li>
-</ul>  
+</ul>
 <% else %>
   <%= render :partial => "account/login" %>
   <ul>
     <li><%= link_to '開催中のイベント一覧', :controller => "event", :action => "list" %></li>
-  </ul>  
+  </ul>
 <% end %>
 
