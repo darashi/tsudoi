@@ -2,6 +2,6 @@
 
 <ul>
 <% for event in @events%>
-  <li><%= link_to_event(event) %>
+  <li>[<%= event.status %>] <%= link_to_event(event) %></li>
 <% end %>
 </ul>
