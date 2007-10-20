@@ -4,7 +4,6 @@
 <div id="header">
   <div id="logo"><h1><%= link_to 'Tsudoi', :controller => "index", :action => "index" %></h1></div>
 </div> <!-- header -->
-
 <%= render :partial => "layouts/header" %>
 <p style="color: green"><%= flash[:notice] %></p>
 <%= yield  %>
