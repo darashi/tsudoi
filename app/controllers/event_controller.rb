@@ -1,6 +1,6 @@
 class EventController < ApplicationController
   # Eventの状態を変更するためにはログインが必要
-  before_filter :login_required, :only => [:destroy, :create, :update]
+  before_filter :login_required, :only => [:destroy, :create, :update, :owned]
 
   def index
     list
