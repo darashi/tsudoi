@@ -51,6 +51,7 @@ Rails::Initializer.run do |config|
   # end
 
   # See Rails::Configuration for more options
+  config.active_record.observers = :user_observer
 end
 
 # Add new mime types for use in respond_to blocks:
@@ -58,3 +59,16 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
+
+module ApplicationConfig
+  # サイトの名称
+  # システムから送るメールの Subject の頭につく
+  SITE_NAME="Tsudoi"
+
+  # サイトの URL
+  SITE_URL="http://localhost:3000/"
+
+  # ユーザー登録の confirm メールの From
+  ADMIN_MAIL_ADDR="admin@example.com"
+end
+

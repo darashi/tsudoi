@@ -27,12 +27,32 @@ class AccountController < ApplicationController
   def signup
     @user = User.new(params[:user])
     return unless request.post?
-    @user.save!
-#    self.current_user = @user
-    redirect_back_or_default(:controller => '/account', :action => 'index')
-    flash[:notice] = "Thanks for signing up!"
-  rescue ActiveRecord::RecordInvalid
-    render :action => 'signup'
+    begin
+      User.transaction do
+        @user.save!
+        #    self.current_user = @user
+        #    redirect_back_or_default(:controller => '/account', :action => 'index')
+        flash[:notice] = "Thanks for signing up!"
+        render :action => 'signup_notification'
+      end
+    rescue ActiveRecord::RecordInvalid
+      flash[:notice] = "ユーザー登録に失敗しました"
+      render :action => 'signup'
+    end
+  end
+
+  def signup_notification
+
+  end
+
+  def activate
+    @user = User.find_by_activation_code(params[:id])
+    if @user and @user.activate
+      self.current_user = @user
+#      flash[:notice] = "ユーザー登録が完了しました"
+    else
+      flash[:notice] = "ユーザー登録に失敗しました"
+    end
   end
 
   def logout
