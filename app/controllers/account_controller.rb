@@ -50,16 +50,21 @@ class AccountController < ApplicationController
       self.current_user = @user
 #      flash[:notice] = "ユーザー登録が完了しました"
     else
+#      logger.info("#{$!}\n#{$@.join("     \n") rescue ''}")
       flash[:notice] = "ユーザー登録に失敗しました"
     end
   end
 
   def delete
-    unless Event.find(:first, :conditions => ['time > ? AND owner_user_id = ?', Time.now, self.current_user.id])
+    events = Event.find(:all, :conditions => ['time > ? AND owner_user_id = ?', Time.now, self.current_user.id])
+    unless events.empty?
+      flash[:notice] = "主催中のイベントがあるので、アカウント削除はできません。<br/>" +
+        "未完了のイベントを全て削除してください。<br/>" +
+        "#{events.map(&:name).join(', ')}"
+      redirect_to(:controller => "event", :action => 'owned')
+    else
       self.current_user.destroy
       redirect_to :action => 'logout'
-    else
-      redirect_back_or_default(:action => 'index')
     end
   end
 

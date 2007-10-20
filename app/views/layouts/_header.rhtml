@@ -3,8 +3,8 @@
   <p id="login_check">
   <% if logged_in? %>
     <%=h self.current_user.login %> でログイン中
-    (<%= link_to "ログアウト", :controller => "/account", :action => :logout %> | 
-     <%= link_to "アカウント削除", :controller => "/account", :action => :delete %>)
+    (<%= link_to "ログアウト", :controller => "/account", :action => :logout %> |
+     <%= link_to "アカウント削除", {:controller => "/account", :action => :delete}, :confirm => '本当に削除しても良いですか？' %>)
   <% else %>
     <% path = [controller.controller_name, controller.action_name].join("/") %>
     <% unless ["index/index", "account/login"].include? path %>
