@@ -4,6 +4,10 @@
 </p>
 <% end %>
 
+<% if @event.owner == self.current_user %>
+  <%= link_to 'このイベントを編集する', :action => 'edit', :id => @event %>
+<% end %>
+
 <hr />
 
 <h2> 参加者一覧</h2>
@@ -15,5 +19,3 @@
 
 <hr />
 
-<%= link_to 'Edit', :action => 'edit', :id => @event %> |
-<%= link_to 'Back', :action => 'list' %>

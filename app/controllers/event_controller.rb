@@ -12,7 +12,8 @@ class EventController < ApplicationController
          :redirect_to => { :action => :list }
 
   def list
-    @event_pages, @events = paginate :events, :per_page => 10
+    # TODO: 募集中のものだけを抽出
+    @events = Event.find(:all, params[:id])
   end
 
   def show
@@ -36,10 +37,18 @@ class EventController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
+    if @event.owner != self.current_user
+      redirect_to :back
+      return false
+    end
   end
 
   def update
     @event = Event.find(params[:id])
+    if @event.owner != self.current_user
+      redirect_to :back
+      return false
+    end
     if @event.update_attributes(params[:event])
       flash[:notice] = 'Event was successfully updated.'
       redirect_to :action => 'show', :id => @event
@@ -50,9 +59,12 @@ class EventController < ApplicationController
 
   def destroy
     Event.find(params[:id]).destroy
+    if @event.owner != self.current_user
+      redirect_to :back
+      return false
+    end
     redirect_to :action => 'list'
   end
-
   def owned
     @events = self.current_user.owned_events
   end
