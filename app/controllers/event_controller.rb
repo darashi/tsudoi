@@ -1,4 +1,7 @@
 class EventController < ApplicationController
+  # Eventの状態を変更するためにはログインが必要
+  before_filter :login_required, :only => [:destroy, :create, :update]
+
   def index
     list
     render :action => 'list'
@@ -22,6 +25,7 @@ class EventController < ApplicationController
 
   def create
     @event = Event.new(params[:event])
+    @event.owner_user_id = self.current_user.id
     if @event.save
       flash[:notice] = 'Event was successfully created.'
       redirect_to :action => 'list'
@@ -47,5 +51,9 @@ class EventController < ApplicationController
   def destroy
     Event.find(params[:id]).destroy
     redirect_to :action => 'list'
+  end
+
+  def owned
+    @events = self.current_user.owned_events
   end
 end

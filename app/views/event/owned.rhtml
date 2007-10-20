@@ -1,0 +1,7 @@
+<h1><%=h self.current_user.name %>さんが主催しているイベント</h1>
+
+<ul>
+<% for event in @events%>
+  <li><%= link_to_event(event) %>
+<% end %>
+</ul>
