@@ -1,0 +1,31 @@
+<%= error_messages_for 'event' %>
+
+<!--[form:event]-->
+<p><label for="event_name">Name</label><br/>
+<%= text_field 'event', 'name'  %></p>
+
+<p><label for="event_location">Location</label><br/>
+<%= text_field 'event', 'location'  %></p>
+
+<p><label for="event_date">Date</label><br/>
+<%= date_select 'event', 'date'  %></p>
+
+<p><label for="event_deadline">Deadline</label><br/>
+<%= date_select 'event', 'deadline'  %></p>
+
+<p><label for="event_description">Description</label><br/>
+<%= text_area 'event', 'description'  %></p>
+
+<p><label for="event_state">State</label><br/>
+<%= text_field 'event', 'state'  %></p>
+
+<p><label for="event_capacity">Capacity</label><br/>
+<%= text_field 'event', 'capacity'  %></p>
+
+<p><label for="event_created_at">Created at</label><br/>
+<%= date_select 'event', 'created_at'  %></p>
+
+<p><label for="event_updated_at">Updated at</label><br/>
+<%= date_select 'event', 'updated_at'  %></p>
+<!--[eoform:event]-->
+
