@@ -2,6 +2,6 @@
 
 <ul>
 <% for event in @events%>
-  <li><span class="status">[<%= event.status %>]</span> <%= link_to_event(event) %></li>
+  <li><span class="status">[<%=h event.status %>]</span> <%= link_to_event(event) %></li>
 <% end %>
 </ul>
