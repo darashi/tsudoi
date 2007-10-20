@@ -1,9 +1,10 @@
-<h1>イベント一覧</h1>
+<div id="events">
+  <h1>イベント一覧</h1>
+  <ul>
+    <% for event in @events %>
+      <li><%= link_to_event(event) %></li>
+    <% end %>
+  </ul>
 
-<ul>
-  <% for event in @events %>
-    <li><%= link_to_event(event) %></li>
-  <% end %>
-</ul>
-
-<%= link_to 'New event', :action => 'new' %>
+  <p><%= link_to 'New event', :action => 'new' %></p>
+</div>
