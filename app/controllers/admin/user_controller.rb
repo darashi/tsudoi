@@ -9,11 +9,16 @@ class Admin::UserController < ApplicationController
          :redirect_to => { :action => :list }
 
   def list
-    @user_pages, @users = paginate :users, :per_page => 10
+#    @user_pages, @users = paginate :users, :per_page => 10
+    @user_pages = Paginator.new(self, User.count_with_deleted, 10, @params['page'])
+    @users = User.find_with_deleted(:all,
+                                      {:limit  => @user_pages.items_per_page,
+                                      :offset => @user_pages.current.offset,
+                                      :order => "deleted_at"})
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_with_deleted(params[:id])
   end
 
   def new
@@ -31,7 +36,7 @@ class Admin::UserController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find_with_deleted(params[:id])
   end
 
   def update
