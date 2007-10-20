@@ -72,3 +72,9 @@ module ApplicationConfig
   ADMIN_MAIL_ADDR="admin@example.com"
 end
 
+
+class Logger
+  def format_message(severity, timestamp, progname, msg)
+    "%s, [%s#%d] %5s -- %s: %s\n" % [severity[0..0], timestamp, $$, severity, progname, msg]
+  end
+end
