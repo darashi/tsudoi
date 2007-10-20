@@ -1,0 +1,8 @@
+<p>
+<% if logged_in? %>
+  <%=h self.current_user.login %> でログイン中
+  (<%= link_to "ログアウト", :controller => "/account", :action => :logout %>)
+<% else %>
+  <%= link_to "ログインする", :controller => "/account", :action => :login %>
+<% end %>
+</p>

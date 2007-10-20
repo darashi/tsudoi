@@ -1,7 +1,7 @@
-<h1>Tsudoi</h1>
 <% if logged_in? %>
   <%= link_to '主催イベント一覧', :controller => "event", :action => "owned" %>
 <% else %>
+  <%= link_to '開催中のイベント一覧', :controller => "event", :action => "list" %>
   <%= render :partial => "account/login" %>
 <% end %>
 

@@ -1,4 +1,6 @@
 class AccountController < ApplicationController
+  layout "index"
+
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   # If you want "remember me" functionality, add this before_filter to Application Controller
