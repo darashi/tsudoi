@@ -1,5 +1,7 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
+  has_many :owned_events, :class_name => "Event", :foreign_key => :owner_user_id
+
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 

@@ -10,6 +10,8 @@ class CreateEvents < ActiveRecord::Migration
       t.column :created_at, :date
       t.column :updated_at, :date
       t.column :status, :string
+
+      t.column :owner_user_id, :integer
     end
   end
 
