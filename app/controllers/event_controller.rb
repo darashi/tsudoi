@@ -68,4 +68,5 @@ class EventController < ApplicationController
   def owned
     @events = self.current_user.owned_events
   end
+
 end
