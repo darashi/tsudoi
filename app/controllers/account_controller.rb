@@ -54,6 +54,15 @@ class AccountController < ApplicationController
     end
   end
 
+  def delete
+    if self.current_user.owned_events.empty?
+      self.current_user.destroy
+      redirect_to :action => 'logout'
+    else
+      redirect_back_or_default(:action => 'index')
+    end
+  end
+
   def logout
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
