@@ -1,21 +1,22 @@
-<% for column in Event.content_columns %>
-<p>
-  <b><%= column.human_name %>:</b> <%=h @event.send(column.name) %>
-</p>
-<% end %>
+<div id="detail">
+  <% for column in Event.content_columns %>
+  <p>
+    <b><%= column.human_name %>:</b> <%=h @event.send(column.name) %>
+  </p>
+  <% end %>
 
-<% if @event.owner == self.current_user %>
-  <%= link_to 'このイベントを編集する', :action => 'edit', :id => @event %>
-<% end %>
+  <% if @event.owner == self.current_user %>
+    <p><%= link_to 'このイベントを編集する', :action => 'edit', :id => @event %></p>
+  <% end %>
+</div>
 
-<hr />
+<div id="members">
+  <h2> 参加者一覧</h2>
+  <ul>
+  <% for entry in @event.owned_entries %>
+    <li><%=h entry.nick %></li>
+  <% end %>
+  </ul>
+</div>
 
-<h2> 参加者一覧</h2>
-<ul>
-<% for entry in @event.owned_entries %>
-  <li><%=h entry.nick %></li>
-<% end %>
-</ul>
-
-<hr />
 
