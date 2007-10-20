@@ -4,5 +4,16 @@
 </p>
 <% end %>
 
+<hr />
+
+<h2> 参加者一覧</h2>
+<ul>
+<% for entry in @event.owned_entries %>
+  <li><%=h entry.nick %></li>
+<% end %>
+</ul>
+
+<hr />
+
 <%= link_to 'Edit', :action => 'edit', :id => @event %> |
 <%= link_to 'Back', :action => 'list' %>
