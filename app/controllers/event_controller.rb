@@ -84,12 +84,38 @@ class EventController < ApplicationController
     if @entry.status == Entry::STATUS::WAITING_FOR_CONFIRMATION
       if @entry.token == params[:token]
         @entry.activate
+        flash[:notice] = "イベント #{@entry.event.name} への参加が完了しました"
+        redirect_to :action => :show, :id => @entry.event.id
+        Notifier.deliver_entry_activation(@entry)
       else
         # TODO: なんかおかしい場合(トークン不一致)
         render_text "不正な URL がリクエストされました。"
       end
     else
-      # TODO: すでにconfirmされている
+      flash[:notice] = "既に参加登録が完了しています"
+      redirect_to :action => :show, :id => @entry.event.id
+    end
+  end
+
+  # キャンセルしてよいかの確認
+  def cancel
+    @entry = Entry.find(params[:id], :include => :event)
+    unless @entry.token == params[:token] && @entry.status == Entry::STATUS::CONFIRMED
+      render_text "不正なリクエストです"
+      return false
+    end
+  end
+
+  # キャンセルする
+  def cancel_confirmed
+    @entry = Entry.find(params[:id], :include => :event)
+    if @entry.token == params[:token] && @entry.status == Entry::STATUS::CONFIRMED
+      Entry.delete(params[:id])
+      flash[:notice] = "イベント #{@entry.event.name} への参加をキャンセルしました"
+      redirect_to :action => :show, :id => @entry.event.id
+    else
+      render_text "不正なリクエストです"
+      return false
     end
   end
 end

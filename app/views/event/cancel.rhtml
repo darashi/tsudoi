@@ -1,0 +1,4 @@
+<p>イベント <%=h @entry.event.name %> への参加をキャンセルしてもよろしいですか？</p>
+
+<%= button_to "参加を取り消す",
+  {:action => :cancel_confirmed, :id => @entry.id, :token => params[:token]} %>

@@ -8,6 +8,13 @@ class Notifier < ActionMailer::Base
                            :id => entry.id, :token => entry.token)
   end
 
+  def entry_activation(entry)
+    setup_mail_to entry.email, "イベント #{entry.event.name} への参加登録が完了しました"
+    @body[:url] = url_for(:controller => "/event", :action => :cancel,
+                          :id => entry.id, :token => entry.token)
+    @body[:event] = entry.event
+  end
+
   def signup_confirmation(user)
     setup_mail_to user.email, 'ユーザー登録確認'
     @body[:url]  = url_for(:controller => :account, :action => :activate, :id=> user.activation_code)
