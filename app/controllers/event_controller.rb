@@ -80,8 +80,8 @@ class EventController < ApplicationController
 
   # 送信を確認した　
   def confirmation
-    @entry = Entry.find(params[:id])
-    if @entry.status == "waiting_for_confirmation"
+    @entry = Entry.find(params[:id], :include => :event)
+    if @entry.status == Entry::STATUS::WAITING_FOR_CONFIRMATION
       if @entry.token == params[:token]
         @entry.activate
       else
