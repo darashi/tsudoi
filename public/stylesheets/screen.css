@@ -78,3 +78,6 @@ div.progressBar div.background {
   width: 0%;
 }
 
+#notice {
+  color: green;
+}
