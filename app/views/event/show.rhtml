@@ -25,6 +25,6 @@
     <p>ニックネーム: <%= text_field_tag :nick %></p>
     <p>メールアドレス: <%= text_field_tag :email, "", :size => 40 %></p>
     <%= hidden_field_tag :event_id, @event.id %>
-    <%= submit_tag %>
+    <%= submit_tag "参加を申し込む" %>
   <% end %>
 </div>
