@@ -83,7 +83,7 @@ class EventController < ApplicationController
     @entry = Entry.find(params[:id])
     if @entry.status == "waiting_for_confirmation"
       if @entry.token == params[:token]
-        @entry.update_attribute :status, "confirmed"
+        @entry.activate
       else
         # TODO: なんかおかしい場合(トークン不一致)
         render_text "不正な URL がリクエストされました。"
