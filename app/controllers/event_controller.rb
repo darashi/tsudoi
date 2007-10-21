@@ -75,7 +75,7 @@ class EventController < ApplicationController
     @entry = Entry.create(
       :nick => params[:nick], :email => params[:email], :event_id => params[:event_id]
     )
-    RegisterNotifier.deliver_confirmation(@entry)
+    Notifier.deliver_entry_confirmation(@entry)
   end
 
   # 送信を確認した　

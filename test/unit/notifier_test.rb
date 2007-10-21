@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class RegisterNotifierTest < Test::Unit::TestCase
+class NotifierTest < Test::Unit::TestCase
   FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures'
   CHARSET = "utf-8"
 
@@ -18,7 +18,7 @@ class RegisterNotifierTest < Test::Unit::TestCase
 
   private
     def read_fixture(action)
-      IO.readlines("#{FIXTURES_PATH}/register_notifier/#{action}")
+      IO.readlines("#{FIXTURES_PATH}/notifier/#{action}")
     end
 
     def encode(subject)
