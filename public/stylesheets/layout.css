@@ -1,6 +1,39 @@
 /* レイアウト用のCSS
  * screen.css から読み込む */
 
-/* ログインフォーム */
-#login_form {
+/* ヘッダ */
+#header {
+  height: 96px;
+}
+#header,
+#header h1,
+#header p {
+  background-color: #515151;
+  color: #fff;
+  margin: 0;
+}
+#header h1 {
+  padding: 1em;
+}
+#header h1 a {
+  color: #fff;
+}
+
+/* ログイン関連 */
+#login_form, #login_check {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 20px 20px 0 0;
+}
+#login_check a,
+#login_check p,
+#login_form a,
+#login_form p {
+  color: #fff;
+}
+
+#login_form p {
+  float: left;
+  margin-right: .5em;
 }

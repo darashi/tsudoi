@@ -1,9 +1,9 @@
 <div id="login_form">
   <% form_tag :controller => "account", :action => "login" do -%>
-  <p><label for="login">アカウント</label><br/>
+  <p><label for="login">アカウント</label>
   <%= text_field_tag 'login', nil, {:tabindex => 1} %></p>
 
-  <p><label for="password">パスワード</label><br/>
+  <p><label for="password">パスワード</label>
   <%= password_field_tag 'password', nil, {:tabindex => 2} %></p>
 
   <!-- Uncomment this if you want this functionality

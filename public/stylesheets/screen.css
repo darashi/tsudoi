@@ -4,6 +4,8 @@
 body {
   background-color: #fff;
   color: #515151;
+  margin: 0;
+  padding: 0;
 }
 
 body, p, ol, ul, td {
@@ -78,6 +80,7 @@ div.progressBar div.background {
   width: 0%;
 }
 
+/* tsudoi */
 #notice {
   color: green;
 }
