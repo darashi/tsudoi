@@ -66,7 +66,7 @@ module ApplicationConfig
   SITE_NAME="Tsudoi"
 
   # サイトの URL
-  SITE_URL="http://localhost:3000/"
+  HOST = "localhost:3000"
 
   # ユーザー登録の confirm メールの From
   ADMIN_MAIL_ADDR="admin@example.com"
