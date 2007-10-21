@@ -15,7 +15,7 @@
     <h2>参加者一覧</h2>
     <ul>
     <% for entry in @event.confirmed_entries %>
-      <li><%=h entry.nick %></li>
+      <li><%= link_to(entry.nick, :controller => 'people', :action => entry.nick) %></li>
     <% end %>
     </ul>
   </div>
