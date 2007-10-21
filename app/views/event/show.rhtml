@@ -1,28 +1,30 @@
-<div id="detail">
-  <% for column in Event.content_columns %>
-  <p>
-    <b><%= column.human_name %>:</b> <%=h @event.send(column.name) %>
-  </p>
-  <% end %>
+<div id="event">
+  <div id="detail">
+    <% for column in Event.content_columns %>
+    <p>
+      <b><%= column.human_name %>:</b> <%=h @event.send(column.name) %>
+    </p>
+    <% end %>
 
-  <% if @event.owner == self.current_user %>
-    <p><%= link_to 'このイベントを編集する', :action => 'edit', :id => @event %></p>
+    <% if @event.owner == self.current_user %>
+      <p><%= link_to 'このイベントを編集する', :action => 'edit', :id => @event %></p>
+    <% end %>
+  </div>
+
+  <div id="members">
+    <h2>参加者一覧</h2>
+    <ul>
+    <% for entry in @event.confirmed_entries %>
+      <li><%=h entry.nick %></li>
+    <% end %>
+    </ul>
+  </div>
+
+  <h2>このイベントに参加する</h2>
+  <% form_tag :action => :sent do %>
+    <p>ニックネーム: <%= text_field_tag :nick %></p>
+    <p>メールアドレス: <%= text_field_tag :email, "", :size => 40 %></p>
+    <%= hidden_field_tag :event_id, @event.id %>
+    <%= submit_tag %>
   <% end %>
 </div>
-
-<div id="members">
-  <h2>参加者一覧</h2>
-  <ul>
-  <% for entry in @event.confirmed_entries %>
-    <li><%=h entry.nick %></li>
-  <% end %>
-  </ul>
-</div>
-
-<h2>このイベントに参加する</h2>
-<% form_tag :action => :sent do %>
-  <p>ニックネーム: <%= text_field_tag :nick %></p>
-  <p>メールアドレス: <%= text_field_tag :email, "", :size => 40 %></p>
-  <%= hidden_field_tag :event_id, @event.id %>
-  <%= submit_tag %>
-<% end %>
