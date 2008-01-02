@@ -1,9 +1,0 @@
-<h2>検索結果</h2>
-<ul>
-  <% for event in @events -%>
-    <li><%= link_to event.name, :controller => 'event', :action => 'show', :id => event.id %></li>
-  <% end -%>
-</ul>
-
-<%= link_to 'Previous page', { :page => @event_pages.current.previous } if @event_pages.current.previous %>
-<%= link_to 'Next page', { :page => @event_pages.current.next } if @event_pages.current.next %> 

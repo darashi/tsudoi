@@ -1,9 +1,0 @@
-<h2>検索結果</h2>
-<ul>
-  <% for people in @peoples %>
-    <li><%= link_to people.name, :controller => 'people', :action => people.name %></li>
-  <% end -%>
-</ul>
-
-<%= link_to 'Previous page', { :page => @people_pages.current.previous } if @people_pages.current.previous %>
-<%= link_to 'Next page', { :page => @people_pages.current.next } if @people_pages.current.next %> 
