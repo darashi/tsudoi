@@ -11,6 +11,13 @@
 
 <p style="color: green"><%= flash[:notice] %></p>
 
+<% if current_user != :false %>
+  ようこそ <%=h current_user.login %> さん
+  (<%= link_to "ログアウト", {:controller => "session", :action => :destroy}, {:method => :delete, :confirm => "本当にログアウトしますか？"} %>)
+<% else %>
+  <%= link_to "ログインする", :controller => "session", :action => :new %>
+<% end %>
+
 <%= yield  %>
 
 </body>

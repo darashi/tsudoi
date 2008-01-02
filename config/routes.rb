@@ -1,6 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :events
 
+  map.resources :session, :collection => {:new => :get}
+#  map.with_options :controller => 'session' do |session|
+#    session.login  'login',  :action => 'new'
+#    session.logout 'logout', :action => 'destroy'
+#  end
+
+  map.resources :users
+  map.with_options :controller => "users" do |page|
+    page.signup "signup", :action => "new"
+    page.activate "activate/:activation_code", :action => "activate"
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -28,6 +40,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   # map.root :controller => "welcome"
+  map.root :controller => "events"
 
   # See how all your routes lay out with "rake routes"
 
