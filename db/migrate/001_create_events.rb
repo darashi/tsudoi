@@ -4,6 +4,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :title
       t.string :url
       t.datetime :deadline
+      t.datetime :published_at
 
       t.timestamps
     end
