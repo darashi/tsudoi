@@ -57,3 +57,9 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 end
+
+module ApplicationConfig
+  HOST = "localhost:3000"
+  ADMIN_MAIL = "admin@example.jp"
+  SITE_NAME = "Tsudoi"
+end
