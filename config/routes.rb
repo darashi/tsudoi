@@ -2,10 +2,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :events
 
   map.resource :session, :controller => "session"
-#  map.with_options :controller => 'session' do |session|
-#    session.login  'login',  :action => 'new'
-#    session.logout 'logout', :action => 'destroy'
-#  end
+  map.with_options :controller => 'session' do |page|
+    page.login  'login',  :action => 'new'
+    page.logout 'logout', :action => 'destroy'
+  end
 
   map.resources :users
   map.with_options :controller => "users" do |page|
