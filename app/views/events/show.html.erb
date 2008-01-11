@@ -13,6 +13,22 @@
   <%=h @event.deadline %>
 </p>
 
+<h2>参加者一覧(<%=h @event.members.size %>名)</h2>
+<ol>
+<% for user in @event.members %>
+  <li><%=h user.login %></li>
+<% end %>
+</ol>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<% if logged_in? %>
+  <% unless @event.members.include?(user) %>
+    <%= link_to '参加登録する', participate_event_path, {:method => :post, :confirm => "参加登録してよろしいですか？"} %>
+  <% else %>
+    <%= link_to '参加をキャンセルする', cancel_event_path, {:method => :post, :confirm => "参加をキャンセルしてよろしいですか？"} %>
+  <% end %>
+<% else %>
+  <p>イベントに参加するにはまず <%= link_to "サインアップ", signup_path %> が必要です</p>
+<% end %>
+
+<p><%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %></p>

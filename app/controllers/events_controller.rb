@@ -83,4 +83,20 @@ class EventsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def participate
+    Participation.create(:user => current_user, :event => Event.find(params[:id]))
+    flash[:notice] = "参加登録が完了しました"
+    # TODO 二重登録時の処理
+    redirect_to :back
+  end
+
+  def cancel
+    current_user.participations(:conditions => {:event => Event.find(params[:id])}).each do |e|
+      e.destroy
+    end
+    flash[:notice] = "参加をキャンセルしました"
+    # TODO 登録していないイベントをキャンセルしようとしたときの処理
+    redirect_to :back
+  end
 end

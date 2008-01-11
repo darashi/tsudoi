@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :events
+  map.resources :events, :member => {:participate => :post, :cancel => :post}
 
   map.resource :session, :controller => "session"
   map.with_options :controller => 'session' do |page|
