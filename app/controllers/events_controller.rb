@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_filter :login_required, :except => :index  
+  before_filter :login_required, :except => [:index, :show]  
   # GET /events
   # GET /events.xml
   def index
@@ -17,8 +17,13 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @event }
+      if @event
+        format.html # show.html.erb
+        format.xml  { render :xml => @event }
+      else
+        format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => "404 Not Found" }
+        format.xml  { render :xml => @event.errors, :status => "404 Not found" }
+      end
     end
   end
 
