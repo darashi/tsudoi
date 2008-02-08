@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required, :except => :index  
   # GET /events
   # GET /events.xml
   def index
