@@ -44,5 +44,47 @@ describe EventsController do
       end
     end
   end
-end
 
+  describe "#show" do
+    describe "/events/show/1" do
+      describe "レコードが存在していない場合" do
+        before(:each) do
+          Event.stub!(:find)
+          get 'show', :id => 1
+        end
+
+        it "ステータスコードが 404 であること" do
+          response.headers["Status"].should == "404 Not Found"
+        end
+
+        it "404ファイル がレンダリングされること" do
+          response.should render_template("#{RAILS_ROOT}/public/404.html")
+        end
+
+        it "@event に該当するイベントが格納されていないこと" do
+          assigns[:event].should == nil
+        end
+      end
+
+      describe "レコードが存在している場合" do
+        before(:each) do
+          @event = mock("event")
+          Event.should_receive(:find).with("1").and_return(@event)
+          get 'show', :id => 1
+        end
+
+        it "ステータスコードが 200 であること" do
+          response.should be_success
+        end
+
+        it "/events/show がレンダリングされること" do
+          response.should render_template(:show)
+        end
+
+        it "@event に該当するイベントが格納されていること" do
+          assigns[:event].should equal(@event)
+        end
+      end
+    end
+  end
+end
