@@ -26,7 +26,22 @@ describe Event do
       @event.should_not be_valid
     end
 
-    it "既に同じタイトルのイベントが存在していた場合、バリデーションに失敗すること"
+    it "既に同じタイトルのイベントが存在していた場合、バリデーションに失敗すること" do
+      @event = Event.new(
+        :title => "Ruby勉強会@札幌-n",
+        :url => "http://ruby-sapporo.org/news/hogehoge",
+        :deadline => 10.day.ago,
+        :published_at => DateTime.now
+      )
+      @event.save!
+      @event2 = Event.new(
+        :title => "Ruby勉強会@札幌-n",
+        :url => "http://ruby-sapporo.org/news/hogehoge2",
+        :deadline => 20.day.ago,
+        :published_at => DateTime.now
+      )
+      @event2.should_not be_valid
+    end
   end
 
   describe "#url" do
