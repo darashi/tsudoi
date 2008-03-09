@@ -11,8 +11,8 @@ describe Event do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge",
-        :deadline => 10.day.ago.to_datetime,
-        :published_at => DateTime.now
+        :deadline => 10.day.since,
+        :published_at => Time.now
       )
       @event.should be_valid
     end
@@ -20,8 +20,8 @@ describe Event do
     it "空の場合、バリデーションに失敗すること" do
       @event = Event.new(
         :url => "http://ruby-sapporo.org/news/hogehoge",
-        :deadline => 10.day.ago.to_datetime,
-        :published_at => DateTime.now
+        :deadline => 10.day.since,
+        :published_at => Time.now
       )
       @event.should_not be_valid
     end
@@ -30,15 +30,15 @@ describe Event do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge",
-        :deadline => 10.day.ago.to_datetime,
-        :published_at => DateTime.now
+        :deadline => 10.day.since,
+        :published_at => Time.now
       )
       @event.save!
       @event2 = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge2",
-        :deadline => 20.day.ago.to_datetime,
-        :published_at => DateTime.now
+        :deadline => 20.day.since,
+        :published_at => Time.now
       )
       @event2.should_not be_valid
     end
@@ -49,8 +49,8 @@ describe Event do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge",
-        :deadline => 10.day.ago.to_datetime,
-        :published_at => DateTime.now
+        :deadline => 10.day.since,
+        :published_at => Time.now
       )
       @event.should be_valid
     end
@@ -58,8 +58,8 @@ describe Event do
     it "空であっても、バリデーションに成功すること" do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
-        :deadline => 10.day.ago.to_datetime,
-        :published_at => DateTime.now
+        :deadline => 10.day.since,
+        :published_at => Time.now
       )
       @event.should be_valid
     end
@@ -68,8 +68,8 @@ describe Event do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "aaaaaa",
-        :deadline => 10.day.ago.to_datetime,
-        :published_at => DateTime.now
+        :deadline => 10.day.since,
+        :published_at => Time.now
       )
       @event.should_not be_valid
     end
@@ -80,8 +80,8 @@ describe Event do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge",
-        :deadline => 10.day.ago.to_datetime,
-        :published_at => DateTime.now
+        :deadline => 10.day.since,
+        :published_at => Time.now
       )
       @event.should be_valid
     end
@@ -90,7 +90,7 @@ describe Event do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge",
-        :published_at => DateTime.now
+        :published_at => Time.now
       )
       @event.should_not be_valid
     end
@@ -100,7 +100,7 @@ describe Event do
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge",
         :deadline => 123456,
-        :published_at => DateTime.now
+        :published_at => Time.now
       )
       @event.should_not be_valid
     end
@@ -109,8 +109,8 @@ describe Event do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge",
-        :deadline => DateTime.now-7,
-        :published_at => DateTime.now
+        :deadline => 10.day.ago,
+        :published_at => Time.now
       )
       @event.should_not be_valid
     end
@@ -121,8 +121,8 @@ describe Event do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge",
-        :deadline => 10.day.ago.to_datetime,
-        :published_at => DateTime.now
+        :deadline => 10.day.since,
+        :published_at => Time.now
       )
       @event.should be_valid
     end
@@ -131,11 +131,11 @@ describe Event do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge",
-        :deadline => 10.day.ago.to_datetime
+        :deadline => 10.day.since
       )
       @event.save!
       @event.reload
-      @entry.published_at.should == Date.today
+      @event.published_at.to_date.should == Date.today
       @event.should be_valid
     end
 
@@ -143,7 +143,7 @@ describe Event do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge",
-        :deadline => 10.day.ago.to_datetime,
+        :deadline => 10.day.since,
         :published_at => 1234567
       )
       @event.should_not be_valid
@@ -153,8 +153,8 @@ describe Event do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
         :url => "http://ruby-sapporo.org/news/hogehoge",
-        :deadline => DateTime.now-3,
-        :published_at => DateTime.now-7
+        :deadline => 3.day.ago,
+        :published_at => 7.day.ago
       )
       @event.should_not be_valid
     end
