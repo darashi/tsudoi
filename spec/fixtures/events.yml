@@ -1,17 +1,10 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-workshop1:
+created_event:
+  id: 1
   title: "workshop1"
   url: "http://ruby-sapporo.org/hogehoge1"
   deadline: 2008-02-16
-  published: 2008-01-01
-  user_id: 1
-
-workshop2:
-  title: "workshop2"
-  url: "http://ruby-sapporo.org/hogehoge2"
-  deadline: 2008-03-19
-  published: 2008-02-01
-  user_id: 1
-
+  published_at: 2008-01-01
+  owner_user_id: 1
 

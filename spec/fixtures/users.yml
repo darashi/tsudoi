@@ -1,0 +1,6 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+created_event_owner:
+  id: 1
+  login: "admin"
+#
