@@ -1,12 +1,18 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
+  fixtures :users, :events
 
-  it "は複数のイベントを所有できること(イベントの登録)"
+  before(:each) do
+    @owner = users(:created_event_owner)
+  end
 
-  it "は複数のイベントに所有されること(イベントへの参加)"
+  it "は複数のイベントを所有できること(イベントの登録)" do
+    @owner.owned_events[0].should == events(:created_event)
+    @owner.owned_events[1].should == events(:created_event2)
+  end
 
-  describe "#login" do
+  describe "#loginについて:" do
     it "既に同じログイン名のユーザが存在していた場合、バリデーションに失敗すること" do
       @user = User.new(
         :login => "snoozer-05",
@@ -24,7 +30,7 @@ describe User do
       @user2.should_not be_valid
     end
 
-    it "大文字/小文字のみ違いのあるログイン名のユーザが存在していた場合、バリデーションに失敗すること" do
+    it "大文字/小文字のみが違うログイン名のユーザが存在していた場合、バリデーションに失敗すること" do
       @user = User.new(
         :login => "snoozer-05",
         :email => "snoozer.05@ruby-sapporo.orq",
@@ -42,7 +48,7 @@ describe User do
     end
   end
 
-  describe "#email" do
+  describe "#emailについて:" do
     it "既に同じemailアドレスのユーザが存在していた場合、バリデーションに失敗すること" do
       @user = User.new(
         :login => "snoozer-05",
@@ -73,3 +79,48 @@ describe User do
 
 end
 
+describe User,"がイベントに参加表明した場合:" do
+  fixtures :users, :events
+
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = events(:created_event)
+    @user.participates_in @event
+  end
+
+  it "参加を表明したイベントに所有されること" do
+    @user.events[0].should == @event
+  end
+
+end
+
+describe User,"が参加表明したイベントをキャンセルした場合:" do
+  fixtures :users, :events
+
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = events(:created_event)
+    @user.participates_in @event
+    @user.cancels @event
+  end
+
+  it "参加を表明したイベントに所有されていないこと" do
+    @user.events[0].should_not == @event
+  end
+
+end
+
+describe User,"が参加表明していないイベントをキャンセルした場合:" do
+  fixtures :users, :events
+
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = events(:created_event)
+    @user.cancels @event
+  end
+
+  it "参加を表明したイベントに所有されていないこと" do
+    @user.events[0].should_not == @event
+  end
+
+end

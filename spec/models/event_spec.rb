@@ -11,8 +11,6 @@ describe Event do
     @created_event.owner.should == users(:created_event_owner)
   end
 
-  it "は参加を表明したユーザを所有すること"
-
   describe "#titleiについて:" do
     it "空でない場合、バリデーションに成功すること" do
       @event = Event.new(
@@ -169,3 +167,17 @@ describe Event do
 
 end
 
+describe Event,"にユーザが参加表明を行った場合" do
+  fixtures :users, :events
+
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = events(:created_event)
+    @event.members << @user
+  end
+
+  it "は参加を表明したユーザを所有すること" do
+    @event.members[0].should == @user
+  end
+
+end

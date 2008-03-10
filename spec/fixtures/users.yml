@@ -3,4 +3,7 @@
 created_event_owner:
   id: 1
   login: "admin"
-#
+
+tsudoi_user1:
+  id: 2
+  login: "user1"

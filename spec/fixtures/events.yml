@@ -8,3 +8,11 @@ created_event:
   published_at: 2008-01-01
   owner_user_id: 1
 
+created_event2:
+  id: 2
+  title: "workshop2"
+  url: "http://ruby-sapporo.org/hogehoge2"
+  deadline: 2008-02-16
+  published_at: 2008-01-01
+  owner_user_id: 1
+
