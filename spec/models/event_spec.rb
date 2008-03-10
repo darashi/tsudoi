@@ -1,12 +1,19 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Event do
+  fixtures :users, :events
 
-  it "は登録を行ったユーザに所有されること"
+  before(:each) do
+    @created_event = events(:created_event)
+  end
+
+  it "は登録を行ったユーザに所有されること" do
+    @created_event.owner.should == users(:created_event_owner)
+  end
 
   it "は参加を表明したユーザを所有すること"
 
-  describe "#title" do
+  describe "#titleiについて:" do
     it "空でない場合、バリデーションに成功すること" do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
@@ -44,7 +51,7 @@ describe Event do
     end
   end
 
-  describe "#url" do
+  describe "#urliについて:" do
     it "URLが入力されていた場合、バリデーションに成功すること" do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
@@ -75,7 +82,7 @@ describe Event do
     end
   end
 
-  describe "#deadline" do
+  describe "#deadlineについて:" do
     it "現在日時以降の日付が入力されていた場合、バリデーションに成功すること" do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
@@ -116,7 +123,7 @@ describe Event do
     end
   end
 
-  describe "#published_at" do
+  describe "#published_atについて:" do
     it "現在日時以降の日付が入力されていた場合、バリデーションに成功すること" do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
