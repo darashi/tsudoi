@@ -1,5 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
+  has_many :owned_events, :class_name => "Event", :foreign_key => :owner_user_id
   has_many :participations
   has_many :events, :through => :participations
 
@@ -82,6 +83,14 @@ class User < ActiveRecord::Base
     self.remember_token_expires_at = nil
     self.remember_token            = nil
     save(false)
+  end
+
+  def participates_in(event)
+    event.members << self
+  end
+
+  def cancels(event)
+    event.members.delete(self)
   end
 
   protected
