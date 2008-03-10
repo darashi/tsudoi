@@ -14,15 +14,15 @@ class Event < ActiveRecord::Base
   end
 
   def validate_on_update
-    if valid_as_datetime?(deadline)
-      if valid_as_datetime?(published_at) && (deadline <= published_at)
+    if valid_datetime?(deadline)
+      if valid_datetime?(published_at) && (deadline <= published_at)
         errors.add(:published_at, "が正しくありません")
       end
     end
   end
 
   def validate
-    errors.add(:deadline, "が正しくありません") if valid_as_datetime?(deadline) && (deadline <= Time.now)
+    errors.add(:deadline, "が正しくありません") if valid_datetime?(deadline) && (deadline <= Time.now)
   end
 
   def before_save
@@ -31,7 +31,7 @@ class Event < ActiveRecord::Base
 
   private
 
-  def valid_as_datetime?(obj)
+  def valid_datetime?(obj)
     obj && obj.is_a?(Time)
   end
 
