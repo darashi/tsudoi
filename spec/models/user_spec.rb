@@ -126,6 +126,18 @@ describe User,"が参加表明していないイベントをキャンセルし�
 end
 
 describe User,"がイベントを登録しているにも関わらず、アカウントを削除した場合" do
-  it "登録していたイベントが削除されていること" 
+  fixtures :users, :events
+
+  before(:each) do
+    @owner = users(:created_event_owner)
+    @event = events(:created_event)
+    @event2 = events(:created_event2)
+    @owner.destroy
+  end
+
+  it "当該ユーザが登録していたイベントが削除されていること" do
+    Event.find(:all).should be_empty
+  end
+
 end
 
