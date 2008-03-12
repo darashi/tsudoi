@@ -90,17 +90,21 @@ class EventsController < ApplicationController
   end
 
   def participate
-    Participation.create(:user => current_user, :event => Event.find(params[:id]))
-    flash[:notice] = "参加登録が完了しました"
+    if current_user.participates_in(Event.find(params[:id]))
+      flash[:notice] = "参加登録が完了しました"
+    else
+      flash[:notice] = "参加登録できませんでした"
+    end
     # TODO 二重登録時の処理
     redirect_to :back
   end
 
   def cancel
-    current_user.participations(:conditions => {:event => Event.find(params[:id])}).each do |e|
-      e.destroy
+    if current_user.cancels(Event.find(params[:id]))
+      flash[:notice] = "参加をキャンセルしました"
+    else
+      flash[:notice] = "参加をキャンセルできませんでした"
     end
-    flash[:notice] = "参加をキャンセルしました"
     # TODO 登録していないイベントをキャンセルしようとしたときの処理
     redirect_to :back
   end
