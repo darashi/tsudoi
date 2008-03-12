@@ -84,13 +84,7 @@ describe User,"がイベントに参加表明した場合:" do
 
   before(:each) do
     @user = users(:tsudoi_user1)
-    @event = Event.new(
-      :title => "Ruby勉強会@札幌-n",
-      :url => "http://ruby-sapporo.org/news/hogehoge",
-      :deadline => 10.hour.since
-    )
-    @event.save!
-    @event.reload
+    @event = create_normal_event
     @user.participates_in @event
   end
 
@@ -105,13 +99,7 @@ describe User,"が参加表明したイベントをキャンセルした場合:"
 
   before(:each) do
     @user = users(:tsudoi_user1)
-    @event = Event.new(
-      :title => "Ruby勉強会@札幌-n",
-      :url => "http://ruby-sapporo.org/news/hogehoge",
-      :deadline => 10.hour.since
-    )
-    @event.save!
-    @event.reload
+    @event = create_normal_event
     @user.participates_in @event
     @user.cancels @event
   end
@@ -153,3 +141,13 @@ describe User,"がイベントを登録しているにも関わらず、アカ�
 
 end
 
+def create_normal_event
+  event = Event.new(
+    :title => "Ruby勉強会@札幌-n",
+    :url => "http://ruby-sapporo.org/news/hogehoge",
+    :deadline => 10.hour.since
+  )
+  event.save!
+  event.reload
+  event
+end
