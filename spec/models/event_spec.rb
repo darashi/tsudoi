@@ -265,7 +265,25 @@ describe Event,"にユーザが参加表明を行った時に、まだ公開前�
   end
 end
 
-describe Event,"が参加を表明しているユーザがいるにもかかわらず削除された場合" do
-  it "当該イベントに参加表明しているユーザが存在しないこと"
+describe Event,"にユーザが参加表明した後、当該イベントが削除された場合" do
+  fixtures :users
+
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :deadline => 2.second.since,
+      :published_at => 1.second.since
+    )
+    @event.save!
+    @event.reload
+    @user.participates_in(@event)
+    @event.destroy
+  end
+  
+  it "ユーザの参加イベントに当該イベントが含まれていないこと" do
+    @user.events.should be_empty
+  end
 end
 
