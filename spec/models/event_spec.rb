@@ -224,11 +224,45 @@ describe Event,"にユーザが参加表明を行った時に、既に募集期�
 end
 
 describe Event,"にユーザが参加表明を行った時に、公開当日だった場合" do
-  it "は参加を表明したユーザを所有すること"
+  fixtures :users
+
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :deadline => 1.second.since,
+      :published_at => Time.now
+    )
+    @event.save!
+    @event.reload
+    @user.participates_in(@event)
+  end
+  
+  it "は参加を表明したユーザを所有すること" do
+    @event.members[0].should == @user
+  end
 end
 
 describe Event,"にユーザが参加表明を行った時に、まだ公開前だった場合" do
-  it "は参加を表明したユーザを所有していないこと"
+  fixtures :users
+
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :deadline => 2.second.since,
+      :published_at => 1.second.since
+    )
+    @event.save!
+    @event.reload
+    @user.participates_in(@event)
+  end
+  
+  it "は参加を表明したユーザを所有していないこと" do
+    @event.members[0].should_not == @user
+  end
 end
 
 describe Event,"が参加を表明しているユーザがいるにもかかわらず削除された場合" do

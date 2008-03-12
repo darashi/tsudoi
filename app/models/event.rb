@@ -30,7 +30,7 @@ class Event < ActiveRecord::Base
   end
 
   def can_register?
-    deadline >= Time.now
+    (deadline >= Time.now) && (published_at <= Time.now)
   end
 
   private
