@@ -29,6 +29,10 @@ class Event < ActiveRecord::Base
     self.published_at = Time.now unless self.published_at
   end
 
+  def can_register?
+    deadline >= Time.now
+  end
+
   private
 
   def valid_datetime?(obj)

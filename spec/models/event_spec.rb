@@ -49,7 +49,7 @@ describe Event do
     end
   end
 
-  describe "#urliについて:" do
+  describe "#urlについて:" do
     it "URLが入力されていた場合、バリデーションに成功すること" do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
@@ -183,11 +183,44 @@ describe Event,"にユーザが参加表明を行った場合" do
 end
 
 describe Event,"にユーザが参加表明を行った時に、募集期限当日だった場合" do
-  it "は参加を表明したユーザを所有すること"
+  fixtures :users
+
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :deadline => 10.hour.since
+    )
+    @event.save!
+    @event.reload
+    @user.participates_in(@event)
+  end
+  
+  it "は参加を表明したユーザを所有すること" do
+    @event.members[0].should == @user
+  end
 end
 
 describe Event,"にユーザが参加表明を行った時に、既に募集期限を過ぎていた場合" do
-  it "は参加を表明したユーザを所有していないこと"
+  fixtures :users
+
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :deadline => 1.second.since
+    )
+    @event.save!
+    @event.reload
+    sleep 1
+    @user.participates_in(@event)
+  end
+  
+  it "は参加を表明したユーザを所有していないこと" do
+    @event.members[0].should_not == @user
+  end
 end
 
 describe Event,"にユーザが参加表明を行った時に、公開当日だった場合" do

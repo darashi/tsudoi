@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
   end
 
   def participates_in(event)
-    event.members << self
+    event.members << self if event.can_register?
   end
 
   def cancels(event)
