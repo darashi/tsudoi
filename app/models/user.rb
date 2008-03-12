@@ -1,6 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  has_many :owned_events, :class_name => "Event", :foreign_key => :owner_user_id
+  has_many :owned_events, :class_name => "Event", :foreign_key => :owner_user_id, :dependent => :destroy
   has_many :participations
   has_many :events, :through => :participations
 
