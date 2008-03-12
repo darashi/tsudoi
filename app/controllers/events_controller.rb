@@ -95,7 +95,6 @@ class EventsController < ApplicationController
     else
       flash[:notice] = "参加登録できませんでした"
     end
-    # TODO 二重登録時の処理
     redirect_to :back
   end
 
@@ -105,7 +104,6 @@ class EventsController < ApplicationController
     else
       flash[:notice] = "参加をキャンセルできませんでした"
     end
-    # TODO 登録していないイベントをキャンセルしようとしたときの処理
     redirect_to :back
   end
 end
