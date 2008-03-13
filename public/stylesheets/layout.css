@@ -1,0 +1,48 @@
+/* レイアウト用のCSS
+ * screen.css から読み込む */
+
+/* ヘッダ */
+#header {
+  height: 96px;
+}
+#header,
+#header h1,
+#header p {
+  background-color: #EED4F7;
+  color: #841D88;
+  margin: 0;
+}
+#header h1 {
+  padding: 1em;
+}
+#header h1 a {
+}
+
+/* メイン */
+#main {
+  margin-left: 30px;
+}
+
+/* フッタ */
+#footer {
+  margin: 1em;
+}
+
+/* ログイン関連 */
+#login_form {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 20px 20px 0 0;
+}
+#login_form p {
+  float: left;
+  margin-right: .5em;
+}
+#login_check {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  height: 96px;
+  line-height: 96px;
+}

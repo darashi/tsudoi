@@ -1,5 +1,5 @@
 <p>
-  <b>Title:</b>
+  <b>イベント名:</b>
   <%=h @event.title %>
 </p>
 
@@ -9,7 +9,7 @@
 </p>
 
 <p>
-  <b>Deadline:</b>
+  <b>募集締切:</b>
   <%=h @event.deadline %>
 </p>
 
@@ -27,8 +27,8 @@
     <%= link_to '参加をキャンセルする', cancel_event_path, {:method => :post, :confirm => "参加をキャンセルしてよろしいですか？"} %>
   <% end %>
 <% else %>
-  <p>イベントに参加するにはまず <%= link_to "サインアップ", signup_path %> が必要です</p>
+  <p>イベントに参加するには <%= link_to "ログイン", login_path %> もしくは <%= link_to "サインアップ", signup_path %> を行って下さい</p>
 <% end %>
 
-<p><%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %></p>
+<p><%= link_to 'このイベントを編集する', edit_event_path(@event) %> |
+<%= link_to '戻る', events_path %></p>

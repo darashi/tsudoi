@@ -1,24 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Events: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
-</head>
+<%= render :partial => "layouts/common_head" %>
 <body>
-
-<p style="color: green"><%= flash[:notice] %></p>
-
-<% if logged_in? %>
-  ようこそ <%=h current_user.login %> さん
-  (<%= link_to "ログアウト", logout_path, {:method => :delete, :confirm => "本当にログアウトしますか？"} %>)
-<% else %>
-  <%= link_to "ログインする", login_path %> |
-  <%= link_to "サインアップする", signup_path %>
-<% end %>
-
-<%= yield  %>
-
+  <%= render :partial => "layouts/header" %>
+  <div id="main">
+    <p id="notice"><%= flash[:notice] %></p>
+    <%= yield  %>
+  </div>
+  <%= render :partial => "layouts/footer" %>
 </body>
 </html>
