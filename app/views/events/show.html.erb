@@ -3,8 +3,8 @@
     <h2><%=h @event.title %></h2>
     <ul>
       <li><b>主催者 : </b> <%=h @event.owner.login %></li>
-      <li><b>詳細 : </b> <%= link_to @event.url, @event.url %></li>
-      <li><b>定員 : </b> #TODO</li>
+      <li><b>詳細 : </b> <%= link_to(@event.url, @event.url) %></li>
+      <li><b>定員 : </b> <%=h format_numeric(@event.capacity) %></li>
       <li><b>募集期限 : </b> <%=h @event.deadline %></li>
     </ul>
     <% if @event.owner == self.current_user %>
@@ -18,15 +18,19 @@
         <li><%=h user.login %></li>
       <% end %>
     </ol>
-    <% if logged_in? %>
-      <% unless @event.members.include?(user) %>
-        <%= link_to '参加登録する', participate_event_path, {:method => :post, :confirm => "参加登録してよろしいですか？"} %>
+    <% if @event.can_register? %>
+      <% if logged_in? %>
+        <% unless @event.members.include?(self.current_user) %>
+          <%= link_to '参加登録する', participate_event_path, {:method => :post, :confirm => "参加登録してよろしいですか？"} %>
+        <% else %>
+          <%= link_to '参加をキャンセルする', cancel_event_path, {:method => :post, :confirm => "参加をキャンセルしてよろしいですか？"} %>
+        <% end %>
       <% else %>
-        <%= link_to '参加をキャンセルする', cancel_event_path, {:method => :post, :confirm => "参加をキャンセルしてよろしいですか？"} %>
+        <p>イベントに参加するには <%= link_to "ユーザ登録", signup_path %> が必要です(アカウントをお持ちの方はログインしてください)</p>
       <% end %>
 
     <% else %>
-      <p>イベントに参加するには <%= link_to "ユーザ登録", signup_path %> が必要です(アカウントをお持ちの方はログインしてください)</p>
+      <p>本イベントは募集を締切ました<p>
     <% end %>
   </div>
 </div>  

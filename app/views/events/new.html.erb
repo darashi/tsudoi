@@ -1,26 +1,39 @@
-<h1>New event</h1>
+<div id="event">
+  <h1>イベント登録</h1>
 
-<%= error_messages_for :event %>
+  <%= error_messages_for :event %>
 
-<% form_for(@event) do |f| %>
+  <% form_for(@event) do |f| %>
   <p>
-    <b>Title</b><br />
+    <b>イベント名</b><br />
     <%= f.text_field :title %>
   </p>
 
   <p>
-    <b>Url</b><br />
+    <b>イベント詳細（URL）</b><br />
     <%= f.text_field :url %>
   </p>
 
   <p>
-    <b>Deadline</b><br />
+    <b>定員</b><br />
+    <%= f.text_field :capacity %>
+  </p>
+
+  <p>
+    <b>募集期限</b><br />
     <%= f.datetime_select :deadline %>
   </p>
 
   <p>
-    <%= f.submit "Create" %>
+    <b>公開日</b><br />
+    <%= f.datetime_select :published_at %>
   </p>
-<% end %>
 
-<%= link_to 'Back', events_path %>
+  <p>
+    <%= f.submit "登録" %>
+  </p>
+  <% end %>
+
+  <%= link_to '戻る', events_path %>
+</div>
+

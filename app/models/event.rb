@@ -5,6 +5,7 @@ class Event < ActiveRecord::Base
   validates_presence_of :title, :deadline
   validates_uniqueness_of :title, :case_sensitive => false
   validates_format_of :url, :with => URI.regexp(['http', 'https']), :allow_nil => true
+  validates_numericality_of :capacity, :allow_nil => true
   validates_each :published_at, :deadline do |model, attr, value|
     if value
       unless value.is_a? Time
@@ -30,10 +31,14 @@ class Event < ActiveRecord::Base
   end
 
   def can_register?
-    (deadline >= Time.now) && (published_at <= Time.now)
+    (deadline >= Time.now) && (published_at <= Time.now) && valid_capacity?(capacity, members)
   end
 
   private
+
+  def valid_capacity?(obj, collection)
+    obj.nil? || (collection.size+1 <= obj)
+  end
 
   def valid_datetime?(obj)
     obj && obj.is_a?(Time)

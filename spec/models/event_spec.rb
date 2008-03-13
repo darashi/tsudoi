@@ -80,6 +80,18 @@ describe Event do
     end
   end
 
+  describe "#capacityについて:" do
+    it "数値以外の内容が入力されていた場合、バリデーションに失敗すること" do
+      @event = Event.new(
+        :title => "Ruby勉強会@札幌-n",
+        :capacity => "100人",
+        :deadline => 10.day.since,
+        :published_at => Time.now
+      )
+      @event.should_not be_valid
+    end
+  end
+
   describe "#deadlineについて:" do
     it "現在日時以降の日付が入力されていた場合、バリデーションに成功すること" do
       @event = Event.new(
@@ -262,6 +274,30 @@ describe Event,"にユーザが参加表明を行った時に、まだ公開前�
   
   it "は参加を表明したユーザを所有していないこと" do
     @event.members[0].should_not == @user
+  end
+end
+
+describe Event,"にユーザが参加表明を行った時に、既に定員に達していた場合" do
+  fixtures :users
+
+  before(:each) do
+    @user1 = users(:created_event_owner)
+    @user2 = users(:tsudoi_user1)
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :capacity => 1,
+      :deadline => 2.second.since
+    )
+    @event.save!
+    @event.reload
+    @user1.participates_in(@event)
+    @user2.participates_in(@event)
+  end
+  
+  it "は参加を表明したユーザを所有していないこと" do
+    @event.members.size.should == 1
+    @event.members[0].should == @user1
   end
 end
 
