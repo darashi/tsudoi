@@ -63,3 +63,5 @@ module ApplicationConfig
   ADMIN_MAIL = "admin@example.jp"
   SITE_NAME = "Tsudoi"
 end
+
+ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.update :default => "%Y/%m/%d %H:%M"
