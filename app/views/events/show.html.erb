@@ -1,34 +1,36 @@
-<p>
-  <b>イベント名:</b>
-  <%=h @event.title %>
-</p>
+<div id="event">
+  <div id="detail">
+    <h2><%=h @event.title %></h2>
+    <ul>
+      <li><b>主催者 : </b> <%=h @event.owner.login %></li>
+      <li><b>詳細 : </b> <%= link_to @event.url, @event.url %></li>
+      <li><b>定員 : </b> #TODO</li>
+      <li><b>募集期限 : </b> <%=h @event.deadline %></li>
+    </ul>
+    <% if @event.owner == self.current_user %>
+      <p><%= link_to 'このイベントを編集する', edit_event_path(@event) %></p>
+    <% end %>
+  </div>
+  <div id="members">
+    <h2>参加者一覧(<%=h @event.members.size %>名)</h2>
+    <ol>
+      <% for user in @event.members %>
+        <li><%=h user.login %></li>
+      <% end %>
+    </ol>
+    <% if logged_in? %>
+      <% unless @event.members.include?(user) %>
+        <%= link_to '参加登録する', participate_event_path, {:method => :post, :confirm => "参加登録してよろしいですか？"} %>
+      <% else %>
+        <%= link_to '参加をキャンセルする', cancel_event_path, {:method => :post, :confirm => "参加をキャンセルしてよろしいですか？"} %>
+      <% end %>
+
+    <% else %>
+      <p>イベントに参加するには <%= link_to "ユーザ登録", signup_path %> が必要です(アカウントをお持ちの方はログインしてください)</p>
+    <% end %>
+  </div>
+</div>  
 
 <p>
-  <b>Url:</b>
-  <%=h @event.url %>
-</p>
 
-<p>
-  <b>募集締切:</b>
-  <%=h @event.deadline %>
-</p>
-
-<h2>参加者一覧(<%=h @event.members.size %>名)</h2>
-<ol>
-<% for user in @event.members %>
-  <li><%=h user.login %></li>
-<% end %>
-</ol>
-
-<% if logged_in? %>
-  <% unless @event.members.include?(user) %>
-    <%= link_to '参加登録する', participate_event_path, {:method => :post, :confirm => "参加登録してよろしいですか？"} %>
-  <% else %>
-    <%= link_to '参加をキャンセルする', cancel_event_path, {:method => :post, :confirm => "参加をキャンセルしてよろしいですか？"} %>
-  <% end %>
-<% else %>
-  <p>イベントに参加するには <%= link_to "ログイン", login_path %> もしくは <%= link_to "サインアップ", signup_path %> を行って下さい</p>
-<% end %>
-
-<p><%= link_to 'このイベントを編集する', edit_event_path(@event) %> |
-<%= link_to '戻る', events_path %></p>
+<p><%= link_to '戻る', events_path %></p>

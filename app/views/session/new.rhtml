@@ -1,8 +1,8 @@
 <% form_tag :action => :create do -%>
-<p><label for="login">Login</label><br/>
+<p><label for="login">アカウント</label><br/>
 <%= text_field_tag 'login' %></p>
 
-<p><label for="password">Password</label><br/>
+<p><label for="password">パスワード</label><br/>
 <%= password_field_tag 'password' %></p>
 
 <!-- Uncomment this if you want this functionality
@@ -10,5 +10,5 @@
 <%= check_box_tag 'remember_me' %></p>
 -->
 
-<p><%= submit_tag 'Log in' %></p>
+<p><%= submit_tag 'ログイン' %></p>
 <% end -%>

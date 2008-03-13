@@ -5,8 +5,14 @@
       ようこそ <%=h current_user.login %> さん
       (<%= link_to "ログアウト", logout_path, {:method => :delete, :confirm => "本当にログアウトしますか？"} %>)
     <% else %>
+      <!-- 
       <%= link_to "ログインする", login_path %> |
       <%= link_to "サインアップする", signup_path %>
+      -->
+      <% path = [controller.controller_name, controller.action_name].join("/") %>
+      <% unless ["index/index", "session/new"].include? path %>
+        <%= render :partial => "session/login" %>
+      <% end %>
     <% end %>
   </p>
 </div> <!-- header -->

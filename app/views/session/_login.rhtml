@@ -1,0 +1,17 @@
+<div id="login_form">
+  <% form_tag :controller => "session", :action => "create" do -%>
+  <p><label for="login">アカウント</label>
+  <%= text_field_tag 'login', nil, {:tabindex => 1} %></p>
+
+  <p><label for="password">パスワード</label>
+  <%= password_field_tag 'password', nil, {:tabindex => 2} %></p>
+
+  <!-- Uncomment this if you want this functionality
+  <p><label for="remember_me">Remember me:</label>
+  <%= check_box_tag 'remember_me' %></p>
+  -->
+
+  <p><%= submit_tag 'ログイン' %></p>
+  <% end -%>
+  <p><%= link_to 'ユーザー登録', signup_path %></p>
+</div>
