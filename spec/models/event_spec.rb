@@ -11,7 +11,7 @@ describe Event do
     @created_event.owner.should == users(:created_event_owner)
   end
 
-  describe "#titleiについて:" do
+  describe "#titleについて:" do
     it "空でない場合、バリデーションに成功すること" do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
