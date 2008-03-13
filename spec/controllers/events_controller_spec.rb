@@ -5,6 +5,8 @@ describe EventsController do
   describe "#index" do
     describe "登録イベントが存在していない場合" do
       before(:each) do
+        @event = []
+        Event.stub!(:find).and_return(@event)
         get 'index'
       end
 
@@ -23,10 +25,11 @@ describe EventsController do
 
     describe "登録イベントが1件以上存在している場合" do
       before(:each) do
-        @event = mock("event")
+        @mock_event1 = mock("event")
         @mock_event1.stub!(:title).and_return("Ruby勉強会@札幌-1")
+        @mock_event2 = mock("event")
         @mock_event2.stub!(:title).and_return("Ruby勉強会@札幌-2")
-        @events = [@mock_event]
+        @events = [@mock_event1, @mock_event2]
         Event.stub!(:find).and_return(@events)
         get 'index'
       end
@@ -61,7 +64,7 @@ describe EventsController do
           response.should render_template("#{RAILS_ROOT}/public/404.html")
         end
 
-        it "@event に該当するイベントが格納されていないこと" do
+        it ":idで指定したイベントをロードしていないこと" do
           assigns[:event].should == nil
         end
       end
@@ -81,7 +84,7 @@ describe EventsController do
           response.should render_template(:show)
         end
 
-        it "@event に該当するイベントが格納されていること" do
+        it ":idで指定したイベントをロードしていること" do
           assigns[:event].should equal(@event)
         end
       end
