@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
+  before_filter :login_required, :except => [:new, :create]
+
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   
+  # render index.rhtml
+  def index
+  end
 
   # render new.rhtml
   def new

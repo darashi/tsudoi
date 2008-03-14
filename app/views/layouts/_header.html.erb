@@ -2,7 +2,7 @@
   <div id="logo"><h1><%= link_to 'Tsudoi', root_path %></h1></div>
   <p id="login_check">
     <% if logged_in? %>
-      ようこそ <%=h current_user.login %> さん
+      ようこそ <%= link_to current_user.login, home_path %> さん
       (<%= link_to "ログアウト", logout_path, {:method => :delete, :confirm => "本当にログアウトしますか？"} %>)
     <% else %>
       <!-- 

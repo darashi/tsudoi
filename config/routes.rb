@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users
   map.with_options :controller => "users" do |page|
+    page.home "home", :action => "index"
     page.signup "signup", :action => "new"
     page.activate "activate/:activation_code", :action => "activate"
   end
