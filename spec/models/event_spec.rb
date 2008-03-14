@@ -348,10 +348,24 @@ describe Event, "にユーザが参加表明した後、定員数を現在の参
 end
 
 describe Event, "にユーザが参加表明した後、公開日を未来日に変更しようとした場合" do
-  it "公開日の変更を行えないこと"
-end
+  fixtures :users
 
-describe Event, "にユーザが参加表明した後、募集期限を過去日に変更しようとした場合" do
-  it "既に参加表明したユーザはそのままで、募集期限の変更も行えること"
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :capacity => 2,
+      :deadline => 20.day.since
+    )
+    @event.save!
+    @event.reload
+    @user.participates_in(@event)
+    @event.published_at = 10.day.since
+  end
+  
+  it "公開日の変更を行えないこと" do
+    @event.should_not be_valid
+  end
 end
 
