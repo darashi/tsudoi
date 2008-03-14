@@ -324,7 +324,27 @@ describe Event,"にユーザが参加表明した後、当該イベントが削�
 end
 
 describe Event, "にユーザが参加表明した後、定員数を現在の参加人数より少なくしようとした場合" do
-  it "定員数の変更を行えないこと"
+  fixtures :users
+
+  before(:each) do
+    @user1 = users(:created_event_owner)
+    @user2 = users(:tsudoi_user1)
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :capacity => 2,
+      :deadline => 2.second.since
+    )
+    @event.save!
+    @event.reload
+    @user1.participates_in(@event)
+    @user2.participates_in(@event)
+    @event.capacity = 1
+  end
+  
+  it "定員数の変更を行えないこと" do
+    @event.should_not be_valid
+  end
 end
 
 describe Event, "にユーザが参加表明した後、公開日を未来日に変更しようとした場合" do

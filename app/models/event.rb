@@ -24,6 +24,7 @@ class Event < ActiveRecord::Base
 
   def validate
     errors.add(:deadline, "が正しくありません") if valid_datetime?(deadline) && (deadline <= Time.now)
+    errors.add(:capacity, "が現在の参加人数を下回っています") if capacity_less_than_current_members?
   end
 
   def before_save
@@ -31,17 +32,33 @@ class Event < ActiveRecord::Base
   end
 
   def can_register?
-    (deadline >= Time.now) && (published_at <= Time.now) && valid_capacity?(capacity, members)
+    (deadline >= Time.now) && (published_at <= Time.now) && in_capacity?
   end
 
   private
 
-  def valid_capacity?(obj, collection)
-    obj.nil? || (collection.size+1 <= obj)
-  end
-
   def valid_datetime?(obj)
     obj && obj.is_a?(Time)
+  end
+
+  def capacity_effective?
+    !self.capacity.nil?
+  end
+
+  def in_capacity?
+    if capacity_effective?
+      return self.members.size+1 <= self.capacity
+    else
+      return true
+    end
+  end
+
+  def capacity_less_than_current_members?
+    if capacity_effective?
+      return !self.members.nil? && (self.capacity < self.members.size)
+    else
+      return false
+    end
   end
 
 end
