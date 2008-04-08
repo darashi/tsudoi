@@ -46,12 +46,12 @@ class Event < ActiveRecord::Base
     !self.members.empty?
   end
 
-  def capacity_effective?
+  def effective_capacity?
     !self.capacity.nil?
   end
 
   def in_capacity?
-    if capacity_effective?
+    if effective_capacity?
       return self.members.size+1 <= self.capacity
     else
       return true
@@ -59,7 +59,7 @@ class Event < ActiveRecord::Base
   end
 
   def capacity_less_than_current_members?
-    if capacity_effective?
+    if effective_capacity?
       return self.capacity < self.members.size
     else
       return false
