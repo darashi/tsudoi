@@ -52,7 +52,7 @@ class Event < ActiveRecord::Base
 
   def in_capacity?
     if effective_capacity?
-      return self.members.size+1 <= self.capacity
+      return self.members.size < self.capacity
     else
       return true
     end
