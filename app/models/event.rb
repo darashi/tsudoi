@@ -36,6 +36,12 @@ class Event < ActiveRecord::Base
     (deadline >= Time.now) && (published_at <= Time.now) && in_capacity?
   end
 
+  def state
+    return :prep if published_at > Time.now
+    return :open if can_register?
+    return :closed
+  end
+
   private
 
   def valid_datetime?(obj)
