@@ -32,13 +32,9 @@ class Event < ActiveRecord::Base
     self.published_at = Time.now unless self.published_at
   end
 
-  def can_register?
-    (deadline >= Time.now) && (published_at <= Time.now) && in_capacity?
-  end
-
   def state
     return :prep if published_at > Time.now
-    return :open if can_register?
+    return :open if (deadline > Time.now) && (published_at <= Time.now) && in_capacity?
     return :closed
   end
 
