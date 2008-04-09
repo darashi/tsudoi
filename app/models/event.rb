@@ -24,6 +24,7 @@ class Event < ActiveRecord::Base
 
   def validate
     errors.add(:deadline, "が正しくありません") if valid_datetime?(deadline) && (deadline <= Time.now)
+    errors.add(:capacity, "が不正です") if capacity == 0
     errors.add(:capacity, "が現在の参加人数を下回っています") if capacity_less_than_current_members?
     errors.add(:published_at, "既に参加表明された方がいるため未来日には変更できません") if participant_exist? && (published_at >= Time.now)
   end
