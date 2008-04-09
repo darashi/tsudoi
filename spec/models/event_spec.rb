@@ -233,7 +233,8 @@ describe Event,"現在日時が#published_atと#deadlineを過ぎていて、参
       :title => "Ruby勉強会@札幌-n",
       :url => "http://ruby-sapporo.org/news/hogehoge",
       :capacity => 1,
-      :deadline => 1.second.since,
+      #:deadline => 1.second.since,
+      :deadline => Time.now,
       :published_at => 7.day.ago
     )
     sleep 1
