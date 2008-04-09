@@ -20,10 +20,12 @@
     </ol>
     <% if logged_in? %>
       <% unless @event.members.include?(self.current_user) %>
-        <% if @event.can_register? %>
+        <% if @event.state == :open %>
           <%= link_to '参加登録する', participate_event_path, {:method => :post, :confirm => "参加登録してよろしいですか？"} %>
+        <% elsif @event.state == :prep %>
+          <p>本イベントはまだ募集を開始していません<p>
         <% else %>
-          <p>本イベントは募集を締切ました<p>
+          <p>本イベントは募集を締切りました<p>
         <% end %>
       <% else %>
         <%= link_to '参加をキャンセルする', cancel_event_path, {:method => :post, :confirm => "参加をキャンセルしてよろしいですか？"} %>
