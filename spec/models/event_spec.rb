@@ -90,6 +90,16 @@ describe Event do
       )
       @event.should_not be_valid
     end
+
+    it "数値が入力されていた場合、バリデーションに成功すること" do
+      @event = Event.new(
+        :title => "Ruby勉強会@札幌-n",
+        :capacity => 10,
+        :deadline => 10.day.since,
+        :published_at => Time.now
+      )
+      @event.should be_valid
+    end
   end
 
   describe "#deadlineについて:" do
@@ -177,6 +187,100 @@ describe Event do
     end
   end
 
+end
+
+describe Event,"現在日時が#published_atと#deadlineの間で、参加人数が#capacityに達していない場合" do
+  before(:each) do
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :capacity => 1,
+      :deadline => 3.day.since,
+      :published_at => 7.day.ago
+    )
+  end
+
+  it "イベント状態が参加受付中であること" do
+    @event.state.should == :open
+  end
+end
+
+describe Event,"現在日時が#published_atと#deadlineの間で、参加人数が#capacityに達していた場合" do
+  fixtures :users
+
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :capacity => 1,
+      :deadline => 3.day.since,
+      :published_at => 7.day.ago
+    )
+    @event.save!
+    @event.reload
+    @event.members << @user
+  end
+
+  it "イベント状態が参加締切であること" do
+    @event.state.should == :closed
+  end
+end
+
+describe Event,"現在日時が#published_atと#deadlineを過ぎていて、参加人数が#capacityに達していない場合" do
+  before(:each) do
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :capacity => 1,
+      :deadline => 1.second.since,
+      :published_at => 7.day.ago
+    )
+    sleep 1
+  end
+
+  it "イベント状態が参加締切であること" do
+    @event.state.should == :closed
+  end
+end
+
+describe Event,"現在日時が#published_atと#deadlineを過ぎていて、参加人数が#capacityに達していた場合" do
+  fixtures :users
+
+  before(:each) do
+    @user = users(:tsudoi_user1)
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :capacity => 1,
+      :deadline => 1.second.since,
+      :published_at => 7.day.ago
+    )
+    @event.save!
+    @event.reload
+    @event.members << @user
+    sleep 1
+  end
+
+  it "イベント状態が参加締切であること" do
+    @event.state.should == :closed
+  end
+end
+
+describe Event,"現在日時が#published_atと#deadlineに達していなくて、参加人数が#capacityに達していない場合" do
+  before(:each) do
+    @event = Event.new(
+      :title => "Ruby勉強会@札幌-n",
+      :url => "http://ruby-sapporo.org/news/hogehoge",
+      :capacity => 1,
+      :deadline => 7.day.since,
+      :published_at => 3.day.since
+    )
+  end
+
+  it "イベント状態が公開前であること" do
+    @event.state.should == :prep
+  end
 end
 
 describe Event,"にユーザが参加表明を行った場合" do
@@ -368,4 +472,3 @@ describe Event, "にユーザが参加表明した後、公開日を未来日に
     @event.should_not be_valid
   end
 end
-
