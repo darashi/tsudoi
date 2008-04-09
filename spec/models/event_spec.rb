@@ -91,6 +91,25 @@ describe Event do
       @event.should_not be_valid
     end
 
+    it "入力人数が0人だった場合、バリデーションに失敗すること" do
+      @event = Event.new(
+        :title => "Ruby勉強会@札幌-n",
+        :capacity => 0,
+        :deadline => 10.day.since,
+        :published_at => Time.now
+      )
+      @event.should_not be_valid
+    end
+
+    it "空だった場合、バリデーションに成功すること" do
+      @event = Event.new(
+        :title => "Ruby勉強会@札幌-n",
+        :deadline => 10.day.since,
+        :published_at => Time.now
+      )
+      @event.should be_valid
+    end
+
     it "数値が入力されていた場合、バリデーションに成功すること" do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
