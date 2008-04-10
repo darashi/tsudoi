@@ -10,14 +10,6 @@
     <% if @event.owner == self.current_user %>
       <p><%= link_to 'このイベントを編集する', edit_event_path(@event) %></p>
     <% end %>
-  </div>
-  <div id="members">
-    <h2>参加者一覧(<%=h @event.members.size %>名)</h2>
-    <ol>
-      <% for user in @event.members %>
-        <li><%=h user.login %></li>
-      <% end %>
-    </ol>
     <% if logged_in? %>
       <% unless @event.members.include?(self.current_user) %>
         <% if @event.state == :open %>
@@ -34,8 +26,18 @@
       <p>イベントに参加するには <%= link_to "ユーザ登録", signup_path %> が必要です(アカウントをお持ちの方はログインしてください)</p>
     <% end %>
   </div>
+  <div id="members">
+    <h2>参加者一覧(<%=h @event.members.size %>名)</h2>
+    <ol>
+      <% for user in @event.members %>
+        <li><%=h user.login %></li>
+      <% end %>
+    </ol>
+  </div>
 </div>  
 
 <p>
 
+<!--
 <p><%= link_to '戻る', events_path %></p>
+-->
