@@ -2,14 +2,14 @@
 <div id="events">
   <h2>参加しているイベント</h2>
   <ul>
-    <% for event in self.current_user.events %>
+    <% for event in self.current_user.events.sort{ |a,b| a.deadline <=> b.deadline }.reverse %>
       <li><%= link_to_event(event) %></li>
     <% end %>
   </ul>
   <br />
   <h2>主催しているイベント</h2>
   <ul>
-    <% for event in self.current_user.owned_events %>
+    <% for event in self.current_user.owned_events.sort{ |a,b| a.deadline <=> b.deadline }.reverse %>
       <li><%= link_to_event(event) %></li>
     <% end %>
   </ul>
