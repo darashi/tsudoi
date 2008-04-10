@@ -21,12 +21,12 @@
 
     <p>
       <b>募集期限</b><br />
-      <%= f.datetime_select :deadline %>
+      <%= f.datetime_select :deadline, {:use_month_numbers => true} %>
     </p>
 
     <p>
       <b>公開日</b><br />
-      <%= f.datetime_select :published_at %>
+      <%= f.datetime_select :published_at, {:use_month_numbers => true} %>
     </p>
 
     <p>
