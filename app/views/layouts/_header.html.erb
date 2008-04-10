@@ -1,5 +1,5 @@
 <div id="header">
-  <div id="logo"><h1><%= link_to 'Tsudoi', root_path %></h1></div>
+  <div id="logo"><h1><%= link_to ApplicationConfig::SITE_NAME, root_path %></h1></div>
   <p id="login_check">
     <% if logged_in? %>
       ようこそ <%= link_to current_user.login, home_path %> さん
