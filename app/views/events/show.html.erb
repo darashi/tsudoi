@@ -30,7 +30,11 @@
     <h2>参加者一覧(<%=h @event.members.size %>名)</h2>
     <ol>
       <% for user in @event.members %>
-        <li><%=h user.login %></li>
+        <% unless (user.url.nil? || user.url.empty?) %>
+          <li><%= link_to user.login, user.url %></li>
+        <% else %>
+          <li><%=h user.login %></li>
+        <% end %>
       <% end %>
     </ol>
   </div>
