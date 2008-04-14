@@ -4,6 +4,22 @@ module ApplicationHelper
     link_to(h(event.title), :controller => :events, :action => :show, :id => event.id)
   end
 
+  def link_to_event_detail(event)
+    unless (event.url.nil? || event.url.empty?)
+      link_to(h(event.url), event.url)
+    else
+      "-"
+    end
+  end
+
+  def link_to_user_website(user)
+    unless (user.url.nil? || user.url.empty?)
+      link_to(h(user.login), user.url)
+    else
+      h(user.login)
+    end
+  end
+
   def format_numeric(value)
     if value.nil?
       "-"
