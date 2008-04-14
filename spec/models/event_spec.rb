@@ -63,6 +63,16 @@ describe Event do
     it "空であっても、バリデーションに成功すること" do
       @event = Event.new(
         :title => "Ruby勉強会@札幌-n",
+        :url => "",
+        :deadline => 10.day.since,
+        :published_at => Time.now
+      )
+      @event.should be_valid
+    end
+
+    it "nilであっても、バリデーションに成功すること" do
+      @event = Event.new(
+        :title => "Ruby勉強会@札幌-n",
         :deadline => 10.day.since,
         :published_at => Time.now
       )

@@ -93,6 +93,17 @@ describe User do
       @user = User.new(
         :login => "snoozer-05",
         :email => "snoozer.05@ruby-sapporo.orq",
+        :url => "",
+        :password => "hogehoge",
+        :password_confirmation => "hogehoge"
+      )
+      @user.should be_valid
+    end
+
+    it "nilであっても、バリデーションに成功すること" do
+      @user = User.new(
+        :login => "snoozer-05",
+        :email => "snoozer.05@ruby-sapporo.orq",
         :password => "hogehoge",
         :password_confirmation => "hogehoge"
       )
