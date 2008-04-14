@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   has_many :members, :through => :participations, :source => :user
   validates_presence_of :title, :deadline
   validates_uniqueness_of :title, :case_sensitive => false
-  validates_format_of :url, :with => URI.regexp(['http', 'https']), :allow_nil => true
+  validates_format_of :url, :with => URI.regexp(['http', 'https']), :if => Proc.new{ |event| !event.url.nil? && !event.url.empty? }
   validates_numericality_of :capacity, :allow_nil => true
   validates_each :published_at, :deadline do |model, attr, value|
     if value
