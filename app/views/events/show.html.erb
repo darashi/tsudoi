@@ -3,7 +3,7 @@
     <h2><%=h @event.title %></h2>
     <ul>
       <li><b>主催者 : </b> <%=h @event.owner.login %></li>
-      <li><b>詳細 : </b> <%= link_to(@event.url, @event.url) %></li>
+      <li><b>詳細 : </b> <%= link_to_event_detail(@event) %></li>
       <li><b>定員 : </b> <%=h format_numeric(@event.capacity) %></li>
       <li><b>募集期限 : </b> <%=h @event.deadline %></li>
     </ul>
@@ -30,11 +30,7 @@
     <h2>参加者一覧(<%=h @event.members.size %>名)</h2>
     <ol>
       <% for user in @event.members %>
-        <% unless (user.url.nil? || user.url.empty?) %>
-          <li><%= link_to user.login, user.url %></li>
-        <% else %>
-          <li><%=h user.login %></li>
-        <% end %>
+          <li><%= link_to_user_website(user) %></li>
       <% end %>
     </ol>
   </div>
