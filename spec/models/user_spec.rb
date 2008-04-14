@@ -77,6 +77,40 @@ describe User do
     end
   end
 
+  describe "#urlについて:" do
+    it "URL以外の内容が入力されていた場合、バリデーションに失敗すること" do 
+      @user = User.new(
+        :login => "snoozer-05",
+        :email => "snoozer.05@ruby-sapporo.orq",
+        :url => "aaaaaa",
+        :password => "hogehoge",
+        :password_confirmation => "hogehoge"
+      )
+      @user.should_not be_valid
+    end
+
+    it "空であっても、バリデーションに成功すること" do
+      @user = User.new(
+        :login => "snoozer-05",
+        :email => "snoozer.05@ruby-sapporo.orq",
+        :password => "hogehoge",
+        :password_confirmation => "hogehoge"
+      )
+      @user.should be_valid
+    end
+
+    it "URLが入力されていた場合、バリデーションに成功すること" do
+      @user = User.new(
+        :login => "snoozer-05",
+        :email => "snoozer.05@ruby-sapporo.orq",
+        :url => "http://ruby-sapporo.orq",
+        :password => "hogehoge",
+        :password_confirmation => "hogehoge"
+      )
+      @user.should be_valid
+    end
+  end
+
 end
 
 describe User,"がイベントに参加表明した場合:" do
