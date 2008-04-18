@@ -21,9 +21,10 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     @user.save!
-    self.current_user = @user
+    #Uncomment to have the user logged in after creating an account - Not Recommended
+    #self.current_user = @user
     redirect_back_or_default('/')
-    flash[:notice] = "Thanks for signing up!"
+    flash[:notice] = "Thanks for signing up! Please check your email to activate your account before logging in."
   rescue ActiveRecord::RecordInvalid
     render :action => 'new'
   end
