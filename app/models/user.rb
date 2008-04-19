@@ -87,7 +87,10 @@ class User < ActiveRecord::Base
   end
 
   def participates_in(event)
-    event.members << self if event.state == :open
+    if event.state == :open
+      event.members << self
+      UserMailer.deliver_registration(self, event)
+    end
   end
 
   def cancels(event)

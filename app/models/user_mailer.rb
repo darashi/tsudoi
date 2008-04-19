@@ -14,6 +14,12 @@ class UserMailer < ActionMailer::Base
     @body[:url]  = url_for(:controller => "/")
   end
 
+  def registration(user, event)
+    setup_email(user)
+    @subject    += 'イベント参加受付'
+    @body[:url]  = url_for(:controller => "events", :action => :show, :id => event.id)
+  end
+
   protected
     def setup_email(user)
       @recipients  = "#{user.email}"
