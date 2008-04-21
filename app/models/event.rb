@@ -30,7 +30,7 @@ class Event < ActiveRecord::Base
   end
 
   def before_save
-    self.published_at = Time.now unless self.published_at
+    self.published_at ||= Time.now
   end
 
   def state
