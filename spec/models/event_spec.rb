@@ -216,6 +216,51 @@ describe Event do
     end
   end
 
+  describe "#position_paper_urlについて:" do
+    it "URLが入力されていた場合、バリデーションに成功すること" do
+      @event = Event.new(
+        :title => "Ruby勉強会@札幌-n",
+        :url => "http://ruby-sapporo.org/news/hogehoge",
+        :deadline => 10.day.since,
+        :published_at => Time.now,
+        :position_paper_url => "http://ruby-sapporo.org/news/hogehoge"
+      )
+      @event.should be_valid
+    end
+
+    it "空であっても、バリデーションに成功すること" do
+      @event = Event.new(
+        :title => "Ruby勉強会@札幌-n",
+        :url => "http://ruby-sapporo.org/news/hogehoge",
+        :deadline => 10.day.since,
+        :published_at => Time.now,
+        :position_paper_url => ""
+      )
+      @event.should be_valid
+    end
+
+    it "nilであっても、バリデーションに成功すること" do
+      @event = Event.new(
+        :title => "Ruby勉強会@札幌-n",
+        :url => "http://ruby-sapporo.org/news/hogehoge",
+        :deadline => 10.day.since,
+        :published_at => Time.now
+      )
+      @event.should be_valid
+    end
+
+    it "URL以外の内容が入力されていた場合、バリデーションに失敗すること" do
+      @event = Event.new(
+        :title => "Ruby勉強会@札幌-n",
+        :url => "http://ruby-sapporo.org/news/hogehoge",
+        :deadline => 10.day.since,
+        :published_at => Time.now,
+        :position_paper_url => "aaaaaa"
+      )
+      @event.should_not be_valid
+    end
+  end
+
 end
 
 describe Event,"現在日時が#published_atと#deadlineの間で、参加人数が#capacityに達していない場合" do
