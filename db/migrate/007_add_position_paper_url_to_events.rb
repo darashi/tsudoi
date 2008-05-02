@@ -1,4 +1,4 @@
-class AddPositionPaperPageToEvents < ActiveRecord::Migration
+class AddPositionPaperUrlToEvents < ActiveRecord::Migration
   def self.up
     add_column :events, :position_paper_url, :string
   end
