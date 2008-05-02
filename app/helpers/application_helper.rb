@@ -16,6 +16,13 @@ module ApplicationHelper
     end
   end
 
+  def link_to_position_paper_url(event)
+    unless (event.position_paper_url.nil? || event.position_paper_url.empty?)
+      link_to(h(event.position_paper_url), event.position_paper_url)
+    else
+      "-"
+    end
+  end
   def link_to_user_website(user)
     unless (user.url.nil? || user.url.empty?)
       link_to(h(user.login), user.url)
