@@ -18,6 +18,7 @@ class UserMailer < ActionMailer::Base
     setup_email(user)
     @subject    += 'イベント参加受付'
     @body[:url]  = url_for(:controller => "events", :action => :show, :id => event.id)
+    @body[:position_paper_url] = event.position_paper_url unless event.position_paper_url == nil
   end
 
   protected
